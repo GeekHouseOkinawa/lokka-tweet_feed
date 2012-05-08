@@ -4,8 +4,8 @@ require 'json'
 
 module Lokka
   module TweetFeed
-    CONSUMER_KEY    = "iBhYRxPYM89O0jjzYOgYEA"
-    CONSUMER_SECRET = "lxfRU4srZqfP7JEIEkFj8UywCeJuXCOooETF1xtl11g"
+    CONSUMER_KEY    = ENV['CONSUMER_KEY']
+    CONSUMER_SECRET = ENV['CONSUMER_SECRET']
 
     def self.registered(app)
       %w(posts posts/* pages pages/*).each do |sub_url|
