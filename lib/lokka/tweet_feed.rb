@@ -8,6 +8,12 @@ module Lokka
     CONSUMER_SECRET = ENV['CONSUMER_SECRET']
 
     def self.registered(app)
+      app.after do
+        @future_entries.each {|entry|
+          Lokka::TweetFeed.when_update(entry, tweet_feed_url)
+        }
+      end
+
       %w(posts posts/* pages pages/*).each do |sub_url|
         app.after "/admin/#{sub_url}" do
           if @entry && @entry.body !~ /<!-- *not *feed *-->/i && !params["preview"]
